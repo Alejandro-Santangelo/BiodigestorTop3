@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "dqkL4QkrIoA5TzqqTe3yczj4evEoU8sCp+u8rdXFklU=",
+  "Source": "Biodigestor",
+  "BasePath": "_content/Biodigestor",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Biodigestor\\wwwroot",
+      "Source": "Biodigestor",
+      "ContentRoot": "D:\\Users\\Usuario\\Desktop\\MIS PROYECTOS\\BiodigestorTop3\\Biodigestor\\wwwroot\\",
+      "BasePath": "_content/Biodigestor",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Users\\Usuario\\Desktop\\MIS PROYECTOS\\BiodigestorTop3\\Biodigestor\\wwwroot\\index.html",
+      "SourceId": "Biodigestor",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Users\\Usuario\\Desktop\\MIS PROYECTOS\\BiodigestorTop3\\Biodigestor\\wwwroot\\",
+      "BasePath": "_content/Biodigestor",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ]
+}
