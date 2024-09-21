@@ -20,7 +20,7 @@ namespace Biodigestor.Controllers.Services
 
         public async Task<bool> UserExists(string? username)
         {
-            return await _context.Users.AnyAsync(u => u.UserName == username);
+            return await _context.AspNetUsers.AnyAsync(u => u.UserName == username);
         }
 
         public async Task CreateUser(ApplicationUser user, string password)
@@ -31,7 +31,7 @@ namespace Biodigestor.Controllers.Services
             }
 
             user.PasswordHash = await HashPassword(password);
-            _context.Users.Add(user);
+            _context.AspNetUsers.Add(user);
 
             try
             {
@@ -53,7 +53,7 @@ namespace Biodigestor.Controllers.Services
 
         public async Task<ApplicationUser?> AuthenticateUser(string? username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
+            var user = await _context.AspNetUsers.FirstOrDefaultAsync(u => u.UserName == username);
             if (user != null && VerifyPassword(password, user.PasswordHash))
             {
                 return user;

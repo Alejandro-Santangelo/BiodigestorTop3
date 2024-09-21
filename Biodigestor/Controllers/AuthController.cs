@@ -22,12 +22,12 @@ namespace Biodigestor.Controllers
         {
             if (model == null || string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.ConfirmPassword))
             {
-                return BadRequest("Username, password, and confirm password are required.");
+                return BadRequest("Se requieren nombre de usuario, contraseña y confirmación de contraseña.");
             }
 
             if (model.Password != model.ConfirmPassword)
             {
-                return BadRequest("Passwords do not match.");
+                return BadRequest("Las contraseñas no coinciden.");
             }
 
             var user = new ApplicationUser
@@ -39,7 +39,7 @@ namespace Biodigestor.Controllers
             try
             {
                 await _userService.CreateUser(user, model.Password);
-                return Ok("User registered successfully.");
+                return Ok("Usuario registrado exitosamente.");
             }
             catch (Exception ex)
             {
@@ -52,17 +52,17 @@ namespace Biodigestor.Controllers
         {
             if (model == null || string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password))
             {
-                return BadRequest("Username and password are required.");
+                return BadRequest("Se requieren nombre de usuario y contraseña.");
             }
 
             var user = await _userService.AuthenticateUser(model.Username, model.Password);
 
             if (user == null)
             {
-                return Unauthorized("Invalid username or password.");
+                return Unauthorized("Nombre de usuario o contraseña no válidos.");
             }
 
-            return Ok("Login successful.");
+            return Ok("Inicio de sesión exitoso.");
         }
     }
 }

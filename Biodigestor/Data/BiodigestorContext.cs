@@ -24,7 +24,7 @@ namespace Biodigestor.Data
         public DbSet<Alarma> Alarmas { get; set; }
         public DbSet<Calentador> Calentadores { get; set; }
         public DbSet<Factura> Facturas { get; set; }
-        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<ApplicationUser> AspNetUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
