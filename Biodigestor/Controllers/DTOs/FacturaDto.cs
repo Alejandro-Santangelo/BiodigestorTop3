@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Biodigestor.DTOs
 {
@@ -8,10 +9,11 @@ namespace Biodigestor.DTOs
     public int NumeroFactura { get; set; }
 
     [Required]
-    public DateTime FechaEmision { get; set; }
-
+    public DateOnly FechaEmision { get; set; }
+    
+    [JsonIgnore]
     [Required]
-    public DateTime FechaVencimiento { get; set; }
+    public DateOnly FechaVencimiento { get; set; }
 
     [Required]
     public decimal ConsumoMensual { get; set; }
@@ -19,11 +21,7 @@ namespace Biodigestor.DTOs
     [Required]
     public decimal ConsumoTotal { get; set; }
 
-     public FacturaDto()
-    {
-        // Inicializar FechaVencimiento a 15 días desde hoy
-        FechaVencimiento = DateTime.Now.AddDays(15);
-    }
+    public DateOnly ProximoVencimiento => FechaVencimiento.AddDays(10);
 }
 }
 

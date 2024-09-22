@@ -55,6 +55,18 @@ namespace Biodigestor.Data
                 .HasForeignKey(d => d.NumeroCliente)
                 .OnDelete(DeleteBehavior.Restrict);
 
+                modelBuilder.Entity<Factura>()
+        .HasOne(f => f.Cliente)
+        .WithMany(c => c.Facturas)
+        .HasForeignKey(f => f.NumeroCliente)
+        .OnDelete(DeleteBehavior.Restrict);
+
+           modelBuilder.Entity<Factura>()
+        .HasOne(f => f.Domicilio)
+        .WithMany(d => d.Facturas) // Asegúrate de tener la colección en Domicilio
+        .HasForeignKey(f => f.NumeroMedidor)
+        .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Factura>()
                 .Property(f => f.ConsumoMensual)
                 .HasColumnType("decimal(10, 2)");

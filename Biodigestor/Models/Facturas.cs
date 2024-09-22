@@ -12,10 +12,10 @@ namespace Biodigestor.Model
         public int NumeroFactura { get; set; }  // PK e Identity
 
         [Required]
-        public DateTime FechaEmision { get; set; }
-
+        public DateOnly FechaEmision { get; set; } 
+        [JsonIgnore]
         [Required]
-        public DateTime FechaVencimiento { get; set; } = DateTime.Now.AddDays(15);
+        public DateOnly FechaVencimiento { get; set; } 
 
 
         [Required]
@@ -38,11 +38,7 @@ namespace Biodigestor.Model
         [ForeignKey("NumeroMedidor")]
         public Domicilio? Domicilio { get; set; }
 
-         public Factura()
-    {
-        // Inicializar FechaVencimiento a 15 días desde hoy
-        FechaVencimiento = DateTime.Now.AddDays(15);
-    }
+         public DateOnly ProximoVencimiento => FechaVencimiento.AddDays(10);
     }
 }
 

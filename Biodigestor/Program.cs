@@ -14,7 +14,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Logging.AddConsole();
 // Agregar servicios al contenedor.
 builder.Services.AddControllers();
 
