@@ -19,34 +19,34 @@ namespace Biodigestor.Controllers
             _context = context;
         }
 
-        // POST sensorPresion
+        // POST presion
         [HttpPost]
-        // POST sensorPresion
-[HttpPost]
-public async Task<ActionResult<SensorPresion>> PostSensorPresion(SensorPresion sensorPresion)
-{
-    _context.SensoresPresion.Add(sensorPresion);
-    await _context.SaveChangesAsync();
-    return CreatedAtAction(nameof(GetSensorPresion), new { id = sensorPresion.IdSensorPresion }, sensorPresion);
-}
+        public async Task<ActionResult<SensorPresion>> PostPresion(SensorPresion sensorPresion)
+        {
+            _context.SensoresPresion.Add(sensorPresion);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetPresion), new { id = sensorPresion.IdSensorPresion }, sensorPresion);
+        }
 
-        // GET sensorPresions
+        // GET presion
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SensorPresion>>> GetSensorPresions()
+        public async Task<ActionResult<IEnumerable<SensorPresion>>> GetPresiones()
         {
             return await _context.SensoresPresion.ToListAsync();
         }
 
-        // GET sensorPresions/{Fecha}
+        // GET presion/{fecha}
         [HttpGet("fecha/{fecha}")]
-        public async Task<ActionResult<IEnumerable<SensorPresion>>> GetSensorPresionsByFecha(DateTime fecha)
+        public async Task<ActionResult<IEnumerable<SensorPresion>>> GetPresionesByFecha(DateTime fecha)
         {
-            return await _context.SensoresPresion.Where(t => t.FechaHoraP.Date == fecha.Date).ToListAsync();
+            return await _context.SensoresPresion
+                .Where(t => t.FechaHora.Date == fecha.Date)
+                .ToListAsync();
         }
 
-        // GET sensorPresion/{id}
+        // GET presion/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<SensorPresion>> GetSensorPresion(int id)
+        public async Task<ActionResult<SensorPresion>> GetPresion(int id)
         {
             var sensorPresion = await _context.SensoresPresion.FindAsync(id);
 
@@ -57,5 +57,57 @@ public async Task<ActionResult<SensorPresion>> PostSensorPresion(SensorPresion s
 
             return sensorPresion;
         }
+
+        // PUT presion/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutPresion(int id, SensorPresion sensorPresion)
+        {
+            if (id != sensorPresion.IdSensorPresion)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(sensorPresion).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SensorPresionExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // DELETE presion/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePresion(int id)
+        {
+            var sensorPresion = await _context.SensoresPresion.FindAsync(id);
+            if (sensorPresion == null)
+            {
+                return NotFound();
+            }
+
+            _context.SensoresPresion.Remove(sensorPresion);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool SensorPresionExists(int id)
+        {
+            return _context.SensoresPresion.Any(e => e.IdSensorPresion == id);
+        }
     }
 }
+

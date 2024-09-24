@@ -25,6 +25,8 @@ namespace Biodigestor.Data
         public DbSet<Calentador> Calentadores { get; set; }
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<ApplicationUser> AspNetUsers { get; set; }
+        
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -67,6 +69,10 @@ namespace Biodigestor.Data
         .HasForeignKey(f => f.NumeroMedidor)
         .OnDelete(DeleteBehavior.Restrict);
 
+         
+
+        
+
             modelBuilder.Entity<Factura>()
                 .Property(f => f.ConsumoMensual)
                 .HasColumnType("decimal(10, 2)");
@@ -78,41 +84,12 @@ namespace Biodigestor.Data
             modelBuilder.Entity<SensorHumedad>()
                 .HasKey(sh => sh.IdSensorHumedad);
 
-            modelBuilder.Entity<SensorHumedad>()
-                .Property(sh => sh.ValorLecturaH)
-                .HasColumnType("decimal(10, 2)");
-
-            modelBuilder.Entity<SensorHumedad>()
-                .HasOne<Biodigestor.Models.Biodigestor>()
-                .WithMany()
-                .HasForeignKey(sh => sh.IdBiodigestor)
-                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<SensorTemperatura>()
+                .HasKey(st => st.IdSensorTemperatura);
 
             modelBuilder.Entity<SensorPresion>()
                 .HasKey(sp => sp.IdSensorPresion);
-
-            modelBuilder.Entity<SensorPresion>()
-                .Property(sp => sp.ValorLecturaP)
-                .HasColumnType("decimal(10, 2)");
-
-            modelBuilder.Entity<SensorPresion>()
-                .HasOne<Biodigestor.Models.Biodigestor>()
-                .WithMany()
-                .HasForeignKey(sp => sp.IdBiodigestor)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<SensorTemperatura>()
-                .HasKey(st => st.IdValorLectura);
-
-            modelBuilder.Entity<SensorTemperatura>()
-                .Property(st => st.ValorLecturaT)
-                .HasColumnType("decimal(10, 2)");
-
-            modelBuilder.Entity<SensorTemperatura>()
-                .HasOne(s => s.Biodigestor)
-                .WithMany(b => b.SensoresTemperatura)
-                .HasForeignKey(s => s.IdBiodigestor)
-                .OnDelete(DeleteBehavior.Restrict);
+                       
 
             modelBuilder.Entity<Biodigestor.Models.Biodigestor>()
                 .HasKey(b => b.IdBiodigestor);

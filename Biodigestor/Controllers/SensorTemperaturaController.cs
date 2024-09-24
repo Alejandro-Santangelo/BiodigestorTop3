@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Biodigestor.Models;
 using Biodigestor.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Biodigestor.Controllers
 {
@@ -20,84 +19,34 @@ namespace Biodigestor.Controllers
             _context = context;
         }
 
-        // POST temperaturas
+        // POST temperatura
         [HttpPost]
-        public async Task<ActionResult<SensorTemperatura>> PostSensorTemperatura(SensorTemperatura sensorTemperatura)
+        public async Task<ActionResult<SensorTemperatura>> PostTemperatura(SensorTemperatura sensorTemperatura)
         {
             _context.SensoresTemperatura.Add(sensorTemperatura);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetSensorTemperatura), new { id = sensorTemperatura.IdValorLectura }, sensorTemperatura);
+            return CreatedAtAction(nameof(GetTemperatura), new { id = sensorTemperatura.IdSensorTemperatura }, sensorTemperatura);
         }
 
-        // POST simulación con alerta (sin DTO)
-        [HttpPost("SIMULAR  LECTURAS")]
-        public async Task<IActionResult> SimularSensorTemperatura([FromBody] SensorTemperatura sensorTemperatura)
-        {
-            // Asignar automáticamente la fecha y hora actual
-            sensorTemperatura.FechaHoraT = DateTime.UtcNow;
-
-            // Agregar la entidad SensorTemperatura a la base de datos
-            _context.SensoresTemperatura.Add(sensorTemperatura);
-            await _context.SaveChangesAsync();
-
-            // Verificar el valor y tomar las acciones correspondientes
-            if (sensorTemperatura.ValorLecturaT < 20)
-            {
-                // Crear alerta para "Calentador Encendido"
-                var alerta = new Alerta
-                {
-                    HoraAlerta = DateTime.UtcNow,
-                    SensorAlerta = sensorTemperatura.IdValorLectura.ToString()
-                };
-                _context.Alertas.Add(alerta);
-            }
-            else if (sensorTemperatura.ValorLecturaT >= 20 && sensorTemperatura.ValorLecturaT < 60)
-            {
-                // Crear alerta para "Advertencia Temperatura Elevada"
-                var alerta = new Alerta
-                {
-                    HoraAlerta = DateTime.UtcNow,
-                    SensorAlerta = sensorTemperatura.IdValorLectura.ToString()
-                };
-                _context.Alertas.Add(alerta);
-            }
-            else if (sensorTemperatura.ValorLecturaT >= 60)
-            {
-                // Crear alarma para "Alarma Temperatura Muy Alta"
-                var alarma = new Alarma
-                {
-                    HoraAlarma = DateTime.UtcNow,
-                    SensorAlarma = sensorTemperatura.IdValorLectura.ToString()
-                };
-                _context.Alarmas.Add(alarma);
-            }
-
-            // Guardar cambios en la base de datos
-            await _context.SaveChangesAsync();
-
-            // Retornar la entidad creada
-            return Ok(sensorTemperatura);
-        }
-
-        // GET temperaturas
+        // GET temperatura
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SensorTemperatura>>> GetSensorTemperaturas()
+        public async Task<ActionResult<IEnumerable<SensorTemperatura>>> GetTemperaturas()
         {
             return await _context.SensoresTemperatura.ToListAsync();
         }
 
-        // GET temperaturas/{Fecha}
+        // GET temperatura/{fecha}
         [HttpGet("fecha/{fecha}")]
-        public async Task<ActionResult<IEnumerable<SensorTemperatura>>> GetSensorTemperaturasByFecha(DateTime fecha)
+        public async Task<ActionResult<IEnumerable<SensorTemperatura>>> GetTemperaturasByFecha(DateTime fecha)
         {
             return await _context.SensoresTemperatura
-                .Where(t => t.FechaHoraT.Date == fecha.Date)
+                .Where(t => t.FechaHora.Date == fecha.Date)
                 .ToListAsync();
         }
 
-        // GET temperaturas/{id}
+        // GET temperatura/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<SensorTemperatura>> GetSensorTemperatura(int id)
+        public async Task<ActionResult<SensorTemperatura>> GetTemperatura(int id)
         {
             var sensorTemperatura = await _context.SensoresTemperatura.FindAsync(id);
 
@@ -108,6 +57,58 @@ namespace Biodigestor.Controllers
 
             return sensorTemperatura;
         }
+
+        // PUT temperatura/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTemperatura(int id, SensorTemperatura sensorTemperatura)
+        {
+            if (id != sensorTemperatura.IdSensorTemperatura)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(sensorTemperatura).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SensorTemperaturaExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // DELETE temperatura/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTemperatura(int id)
+        {
+            var sensorTemperatura = await _context.SensoresTemperatura.FindAsync(id);
+            if (sensorTemperatura == null)
+            {
+                return NotFound();
+            }
+
+            _context.SensoresTemperatura.Remove(sensorTemperatura);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool SensorTemperaturaExists(int id)
+        {
+            return _context.SensoresTemperatura.Any(e => e.IdSensorTemperatura == id);
+        }
     }
 }
+
 
