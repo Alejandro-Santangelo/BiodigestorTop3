@@ -7,7 +7,7 @@ namespace Biodigestor.Models
     public class SensorTemperatura
 {
     [Key]
-    public int IdSensorTemperatura { get; set; }
+    public int IdSensor { get; set; }
     public int IdBiodigestor { get; set; }
     public decimal ValorLectura { get; set; }
     public DateTime FechaHora { get; set; }

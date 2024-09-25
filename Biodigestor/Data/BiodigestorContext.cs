@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 using Biodigestor.Models;
 using Biodigestor.Model;
@@ -25,6 +26,9 @@ namespace Biodigestor.Data
         public DbSet<Calentador> Calentadores { get; set; }
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<ApplicationUser> AspNetUsers { get; set; }
+        public DbSet<SensorHumedad> SensorHumedad { get; set; }
+        public DbSet<Registro> Registros{ get; set; }  
+        
         
         
 
@@ -69,6 +73,10 @@ namespace Biodigestor.Data
         .HasForeignKey(f => f.NumeroMedidor)
         .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<SensorHumedad>()
+            .ToTable("SensoresHumedad");
+
+          
          
 
         
@@ -82,13 +90,14 @@ namespace Biodigestor.Data
                 .HasColumnType("decimal(10, 2)");
 
             modelBuilder.Entity<SensorHumedad>()
-                .HasKey(sh => sh.IdSensorHumedad);
+                .HasKey(sh => sh.IdSensor);
+
 
             modelBuilder.Entity<SensorTemperatura>()
-                .HasKey(st => st.IdSensorTemperatura);
+                .HasKey(st => st.IdSensor);
 
             modelBuilder.Entity<SensorPresion>()
-                .HasKey(sp => sp.IdSensorPresion);
+                .HasKey(sp => sp.IdSensor);
                        
 
             modelBuilder.Entity<Biodigestor.Models.Biodigestor>()

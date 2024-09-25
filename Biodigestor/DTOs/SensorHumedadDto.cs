@@ -1,15 +1,22 @@
-// Models/SensorHumedadUpdateDto.cs
-using System.Text.Json.Serialization;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Biodigestor.DTOs
 {
     public class SensorHumedadDto
     {
-        public int IdBiodigestor { get; set; } // Nuevo campo
+        [Required]
+        public int IdSensor { get; set; }
 
-        
-        public decimal ValorLectura { get; set; }
+        [Required]
+        public int IdBiodigestor { get; set; }
+
+        [Required]
         public DateTime FechaHora { get; set; }
-    
+
+       // [Required]
+        //[Range(0, 100)] // Ajusta el rango según sea necesario
+        public double ValorLectura { get; set; }  // Lectura del sensor de humedad
     }
 }
+

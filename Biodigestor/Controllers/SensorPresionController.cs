@@ -25,7 +25,7 @@ namespace Biodigestor.Controllers
         {
             _context.SensoresPresion.Add(sensorPresion);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetPresion), new { id = sensorPresion.IdSensorPresion }, sensorPresion);
+            return CreatedAtAction(nameof(GetPresion), new { id = sensorPresion.IdSensor }, sensorPresion);
         }
 
         // GET presion
@@ -62,7 +62,7 @@ namespace Biodigestor.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPresion(int id, SensorPresion sensorPresion)
         {
-            if (id != sensorPresion.IdSensorPresion)
+            if (id != sensorPresion.IdSensor)
             {
                 return BadRequest();
             }
@@ -106,7 +106,7 @@ namespace Biodigestor.Controllers
 
         private bool SensorPresionExists(int id)
         {
-            return _context.SensoresPresion.Any(e => e.IdSensorPresion == id);
+            return _context.SensoresPresion.Any(e => e.IdSensor == id);
         }
     }
 }

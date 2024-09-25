@@ -25,7 +25,7 @@ namespace Biodigestor.Controllers
         {
             _context.SensoresTemperatura.Add(sensorTemperatura);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetTemperatura), new { id = sensorTemperatura.IdSensorTemperatura }, sensorTemperatura);
+            return CreatedAtAction(nameof(GetTemperatura), new { id = sensorTemperatura.IdSensor }, sensorTemperatura);
         }
 
         // GET temperatura
@@ -62,7 +62,7 @@ namespace Biodigestor.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTemperatura(int id, SensorTemperatura sensorTemperatura)
         {
-            if (id != sensorTemperatura.IdSensorTemperatura)
+            if (id != sensorTemperatura.IdSensor)
             {
                 return BadRequest();
             }
@@ -106,7 +106,7 @@ namespace Biodigestor.Controllers
 
         private bool SensorTemperaturaExists(int id)
         {
-            return _context.SensoresTemperatura.Any(e => e.IdSensorTemperatura == id);
+            return _context.SensoresTemperatura.Any(e => e.IdSensor == id);
         }
     }
 }

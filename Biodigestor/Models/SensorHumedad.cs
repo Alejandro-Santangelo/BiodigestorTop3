@@ -1,14 +1,19 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using Biodigestor.Model;
 
 namespace Biodigestor.Models
 {
-   public class SensorHumedad
+   [Table("SensoresHumedad")]
+  public class SensorHumedad
 {
     [Key]
-    public int IdSensorHumedad { get; set; }
+    //public int IdRegistro { get; set; }
+    public int IdSensor { get; set; }
     public int IdBiodigestor { get; set; }
-    public decimal ValorLectura { get; set; }
+    //public decimal ValorLectura { get; set; }
     public DateTime FechaHora { get; set; }
+   // public required string Estado { get; set; }
 }
 }

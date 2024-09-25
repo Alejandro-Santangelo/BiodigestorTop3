@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Biodigestor.Models;
 using Biodigestor.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Biodigestor.Controllers
 {
@@ -21,11 +22,16 @@ namespace Biodigestor.Controllers
 
         // POST humedades
         [HttpPost]
-        public async Task<ActionResult<SensorHumedad>> PostHumedad(SensorHumedad sensorHumedad)
+        public async Task<ActionResult<SensorHumedad>> PostHumedad([FromBody] SensorHumedad sensorHumedad)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.SensoresHumedad.Add(sensorHumedad);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetHumedad), new { id = sensorHumedad.IdSensorHumedad }, sensorHumedad);
+            return CreatedAtAction(nameof(GetHumedad), new { id = sensorHumedad.IdSensor }, sensorHumedad);
         }
 
         // GET humedades
@@ -62,7 +68,7 @@ namespace Biodigestor.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHumedad(int id, SensorHumedad sensorHumedad)
         {
-            if (id != sensorHumedad.IdSensorHumedad)
+            if (id != sensorHumedad.IdSensor)
             {
                 return BadRequest();
             }
@@ -79,10 +85,7 @@ namespace Biodigestor.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw; // Re-throw the exception
             }
 
             return NoContent();
@@ -106,7 +109,9 @@ namespace Biodigestor.Controllers
 
         private bool SensorHumedadExists(int id)
         {
-            return _context.SensoresHumedad.Any(e => e.IdSensorHumedad == id);
+            return _context.SensoresHumedad.Any(e => e.IdSensor == id);
         }
     }
 }
+
+
