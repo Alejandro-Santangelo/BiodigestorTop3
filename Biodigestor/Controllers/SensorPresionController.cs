@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Biodigestor.Models;
 using Biodigestor.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Biodigestor.Controllers
 {
@@ -21,8 +22,13 @@ namespace Biodigestor.Controllers
 
         // POST presion
         [HttpPost]
-        public async Task<ActionResult<SensorPresion>> PostPresion(SensorPresion sensorPresion)
+        public async Task<ActionResult<SensorPresion>> PostPresion([FromBody] SensorPresion sensorPresion)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.SensoresPresion.Add(sensorPresion);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetPresion), new { id = sensorPresion.IdSensor }, sensorPresion);
@@ -79,10 +85,7 @@ namespace Biodigestor.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw; // Re-throw the exception
             }
 
             return NoContent();
@@ -110,4 +113,5 @@ namespace Biodigestor.Controllers
         }
     }
 }
+
 

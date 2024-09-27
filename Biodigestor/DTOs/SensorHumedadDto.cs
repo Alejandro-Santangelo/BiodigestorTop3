@@ -1,10 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Biodigestor.DTOs
 {
     public class SensorHumedadDto
     {
+        [JsonIgnore]
         [Required]
         public int IdSensor { get; set; }
 

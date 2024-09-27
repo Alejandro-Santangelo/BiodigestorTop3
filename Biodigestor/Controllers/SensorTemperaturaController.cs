@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Biodigestor.Models;
 using Biodigestor.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Biodigestor.Controllers
 {
@@ -21,8 +22,13 @@ namespace Biodigestor.Controllers
 
         // POST temperatura
         [HttpPost]
-        public async Task<ActionResult<SensorTemperatura>> PostTemperatura(SensorTemperatura sensorTemperatura)
+        public async Task<ActionResult<SensorTemperatura>> PostTemperatura([FromBody] SensorTemperatura sensorTemperatura)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.SensoresTemperatura.Add(sensorTemperatura);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetTemperatura), new { id = sensorTemperatura.IdSensor }, sensorTemperatura);
@@ -79,10 +85,7 @@ namespace Biodigestor.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw; // Re-throw the exception
             }
 
             return NoContent();

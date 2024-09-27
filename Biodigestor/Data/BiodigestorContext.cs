@@ -26,7 +26,7 @@ namespace Biodigestor.Data
         public DbSet<Calentador> Calentadores { get; set; }
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<ApplicationUser> AspNetUsers { get; set; }
-        public DbSet<SensorHumedad> SensorHumedad { get; set; }
+       // public DbSet<SensorHumedad> SensorHumedad { get; set; }
         public DbSet<Registro> Registros{ get; set; }  
         
         
@@ -61,25 +61,28 @@ namespace Biodigestor.Data
                 .HasForeignKey(d => d.NumeroCliente)
                 .OnDelete(DeleteBehavior.Restrict);
 
-                modelBuilder.Entity<Factura>()
-        .HasOne(f => f.Cliente)
-        .WithMany(c => c.Facturas)
-        .HasForeignKey(f => f.NumeroCliente)
-        .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Factura>()
+                .HasOne(f => f.Cliente)
+                .WithMany(c => c.Facturas)
+                .HasForeignKey(f => f.NumeroCliente)
+                .OnDelete(DeleteBehavior.Restrict);
 
-           modelBuilder.Entity<Factura>()
-        .HasOne(f => f.Domicilio)
-        .WithMany(d => d.Facturas) // Asegúrate de tener la colección en Domicilio
-        .HasForeignKey(f => f.NumeroMedidor)
-        .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Factura>()
+                .HasOne(f => f.Domicilio)
+                .WithMany(d => d.Facturas) // Asegúrate de tener la colección en Domicilio
+                .HasForeignKey(f => f.NumeroMedidor)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+                
 
-        modelBuilder.Entity<SensorHumedad>()
-            .ToTable("SensoresHumedad");
+            modelBuilder.Entity<SensorHumedad>()
+                .ToTable("SensoresHumedad");
 
-          
-         
+            modelBuilder.Entity<SensorPresion>()
+            .ToTable("SensoresPresion");
 
-        
+            modelBuilder.Entity<SensorTemperatura>()
+            .ToTable("SensoresTemperatura");
 
             modelBuilder.Entity<Factura>()
                 .Property(f => f.ConsumoMensual)
