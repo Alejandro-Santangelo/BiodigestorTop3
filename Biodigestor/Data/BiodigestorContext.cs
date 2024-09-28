@@ -21,8 +21,7 @@ namespace Biodigestor.Data
         public DbSet<ValvulaAgua> ValvulasAgua { get; set; }
         public DbSet<ValvulaPresion> ValvulasPresion { get; set; }
         public DbSet<Agitador> Agitadores { get; set; }
-        public DbSet<Alerta> Alertas { get; set; }
-        public DbSet<Alarma> Alarmas { get; set; }
+        
         public DbSet<Calentador> Calentadores { get; set; }
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<ApplicationUser> AspNetUsers { get; set; }
@@ -109,11 +108,9 @@ namespace Biodigestor.Data
             modelBuilder.Entity<Agitador>()
                 .HasKey(a => a.IdAgitador);
 
-            modelBuilder.Entity<Alerta>()
-                .HasKey(a => a.IdAlerta);
+            
 
-            modelBuilder.Entity<Alarma>()
-                .HasKey(a => a.IdAlarma);
+            
 
             modelBuilder.Entity<Calentador>()
                 .HasKey(c => c.IdCalentador);

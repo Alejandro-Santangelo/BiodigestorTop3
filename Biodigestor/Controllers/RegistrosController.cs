@@ -34,7 +34,7 @@ namespace Biodigestor.Controllers
 
             if (registro == null)
             {
-                return NotFound();
+                return NotFound("No existe un registro con este Id");
             }
 
             return registro;
@@ -52,7 +52,7 @@ namespace Biodigestor.Controllers
 
                 if (!registros.Any())
                 {
-                    return NotFound();
+                    return NotFound("No existen registros para esta fecha");
                 }
 
                 return Ok(registros);
@@ -65,7 +65,7 @@ namespace Biodigestor.Controllers
 
                 if (!registros.Any())
                 {
-                    return NotFound();
+                    return NotFound("No existen registros para esta fecha ");
                 }
 
                 return Ok(registros);
@@ -86,7 +86,7 @@ namespace Biodigestor.Controllers
 
             if (!registros.Any())
             {
-                return NotFound(); // Devuelve 404 si no hay registros
+                return NotFound("No existe el Biodigestor"); // Devuelve 404 si no hay registros
             }
 
             return Ok(registros); // Devuelve los registros encontrados
@@ -109,7 +109,7 @@ public async Task<ActionResult<IEnumerable<Registro>>> GetRegistrosByTipoSensor(
 
     if (!registros.Any())
     {
-        return NotFound(); // Devuelve 404 si no hay registros
+        return NotFound("El Biodigestor no tiene instalado este tipo de sensor."); // Devuelve 404 si no hay registros
     }
 
     return Ok(registros); // Devuelve los registros encontrados
@@ -126,7 +126,7 @@ public async Task<ActionResult<IEnumerable<Registro>>> GetRegistrosConAlerta()
 
     if (!registros.Any())
     {
-        return NotFound(); // Devuelve 404 si no hay registros
+        return new ObjectResult(new { message = "No existen registros de Alertas." }); // Devuelve 404 si no hay registros
     }
 
     return Ok(registros); // Devuelve los registros encontrados
@@ -141,7 +141,7 @@ public async Task<ActionResult<IEnumerable<Registro>>> GetRegistrosConAlarma()
 
     if (!registros.Any())
     {
-        return NotFound(); // Devuelve 404 si no hay registros
+        return NotFound("No existen registros de Alarmas."); // Devuelve 404 si no hay registros
     }
 
     return Ok(registros); // Devuelve los registros encontrados
@@ -156,7 +156,7 @@ public async Task<ActionResult<IEnumerable<Registro>>> GetRegistrosConNormal()
 
     if (!registros.Any())
     {
-        return NotFound(); // Devuelve 404 si no hay registros
+        return NotFound("No existen registros de Normales."); // Devuelve 404 si no hay registros
     }
 
     return Ok(registros); // Devuelve los registros encontrados
