@@ -1,11 +1,12 @@
-
 using Microsoft.EntityFrameworkCore;
 using Biodigestor.Models;
 using Biodigestor.Model;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Biodigestor.Data
 {
-    public class BiodigestorContext : DbContext
+    public class BiodigestorContext : IdentityDbContext<ApplicationUser>
     {
         public BiodigestorContext(DbContextOptions<BiodigestorContext> options) : base(options)
         {
@@ -21,24 +22,46 @@ namespace Biodigestor.Data
         public DbSet<ValvulaAgua> ValvulasAgua { get; set; }
         public DbSet<ValvulaPresion> ValvulasPresion { get; set; }
         public DbSet<Agitador> Agitadores { get; set; }
-        
+        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Calentador> Calentadores { get; set; }
         public DbSet<Factura> Facturas { get; set; }
+        public DbSet<Registro> Registros { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApplicationUser> AspNetUsers { get; set; }
-       // public DbSet<SensorHumedad> SensorHumedad { get; set; }
-        public DbSet<Registro> Registros{ get; set; }  
-        
-        
-        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Usuario>()
+                .HasKey(u => u.Id);
+                
+
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Nombre)
+                .IsRequired();
+
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Apellido)
+                .IsRequired();
+
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.DNI) // Asegurando que sea int y requerido
+                .IsRequired();
+
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Rol)
+                .IsRequired();
+
+            // Configuración para Cliente
             modelBuilder.Entity<Cliente>()
                 .HasKey(c => c.NumeroCliente);
 
+            // Configuración para Domicilio
             modelBuilder.Entity<Domicilio>()
                 .HasKey(d => d.NumeroMedidor);
 
+            // Configuración para Factura
             modelBuilder.Entity<Factura>()
                 .HasKey(f => f.NumeroFactura);
 
@@ -68,20 +91,18 @@ namespace Biodigestor.Data
 
             modelBuilder.Entity<Factura>()
                 .HasOne(f => f.Domicilio)
-                .WithMany(d => d.Facturas) // Asegúrate de tener la colección en Domicilio
+                .WithMany(d => d.Facturas)
                 .HasForeignKey(f => f.NumeroMedidor)
                 .OnDelete(DeleteBehavior.Restrict);
-            
-                
 
             modelBuilder.Entity<SensorHumedad>()
                 .ToTable("SensoresHumedad");
 
             modelBuilder.Entity<SensorPresion>()
-            .ToTable("SensoresPresion");
+                .ToTable("SensoresPresion");
 
             modelBuilder.Entity<SensorTemperatura>()
-            .ToTable("SensoresTemperatura");
+                .ToTable("SensoresTemperatura");
 
             modelBuilder.Entity<Factura>()
                 .Property(f => f.ConsumoMensual)
@@ -94,23 +115,17 @@ namespace Biodigestor.Data
             modelBuilder.Entity<SensorHumedad>()
                 .HasKey(sh => sh.IdSensor);
 
-
             modelBuilder.Entity<SensorTemperatura>()
                 .HasKey(st => st.IdSensor);
 
             modelBuilder.Entity<SensorPresion>()
                 .HasKey(sp => sp.IdSensor);
-                       
 
             modelBuilder.Entity<Biodigestor.Models.Biodigestor>()
                 .HasKey(b => b.IdBiodigestor);
 
             modelBuilder.Entity<Agitador>()
                 .HasKey(a => a.IdAgitador);
-
-            
-
-            
 
             modelBuilder.Entity<Calentador>()
                 .HasKey(c => c.IdCalentador);
@@ -126,3 +141,6 @@ namespace Biodigestor.Data
         }
     }
 }
+
+
+

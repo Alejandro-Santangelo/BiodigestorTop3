@@ -1,5 +1,3 @@
-
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -68,6 +66,9 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
+// Método para inicializar los roles
+await SeedRoles(app.Services);
+
 // Configurar la tubería de solicitudes HTTP.
 if (app.Environment.IsDevelopment())
 {
@@ -96,6 +97,28 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Método para inicializar los roles
+async Task SeedRoles(IServiceProvider services)
+{
+    using (var scope = services.CreateScope())
+    {
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+        var roles = new[] { "Administracion", "Tecnico" };
+
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+        }
+    }
+}
+
+
+
 
 
 
