@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Biodigestor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06d92dc9a1bf3536b2321cfe1ff0f8b01c9b0830")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4530c40e8aa7c59b37aa2d34c4f2cf4b8d99454d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Biodigestor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Biodigestor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
