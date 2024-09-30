@@ -101,28 +101,33 @@
             };
     
             try {
-                const response = await fetch('/Auth/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(registerModel)
-                });
-    
-                const data = await response.json();
-    
-                if (response.ok) {
-                    registerMessage.textContent = "Registro correcto: " + data.message; // Mensaje de éxito
-                    registerMessage.style.color = "green";
-                } else {
-                    registerMessage.textContent = "Error: " + data.message; // Mensaje de error
-                    registerMessage.style.color = "red";
-                }
-            } catch (error) {
-                console.error('Error en la solicitud:', error);
-                registerMessage.textContent = "Error en la solicitud";
-                registerMessage.style.color = "red";
-            }
+    const response = await fetch('/Auth/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(registerModel)
+    });
+
+    const data = await response.json();
+    console.log("Respuesta del servidor:", data);  // Verificar qué contiene la respuesta
+
+    if (response.ok) {
+        // Si la respuesta fue exitosa y tiene un mensaje
+        registerMessage.textContent = "Registro correcto: " + (data.message || "Sin mensaje");
+        registerMessage.style.color = "green";
+    } else {
+        // Si hay un error, verifica si 'message' existe, si no, muestra todo el objeto de error
+        registerMessage.textContent = "Error: " + (data.message || data.error || JSON.stringify(data));
+        registerMessage.style.color = "red";
+    }
+} catch (error) {
+    console.error('Error en la solicitud:', error);
+    registerMessage.textContent = "Error en la solicitud";
+    registerMessage.style.color = "red";
+}
+
+
         });
     </script>
     
