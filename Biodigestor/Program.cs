@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddConsole();
+
 // Agregar servicios al contenedor.
 builder.Services.AddControllers();
 
@@ -64,6 +65,12 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Agregar políticas de autorización
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireRole", policy => policy.RequireRole("Administracion", "Tecnico", "Manager", "Cliente")); // Define los roles permitidos
+});
+
 var app = builder.Build();
 
 // Método para inicializar los roles
@@ -105,7 +112,7 @@ async Task SeedRoles(IServiceProvider services)
     {
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-        var roles = new[] { "Administracion", "Tecnico" };
+        var roles = new[] { "Administracion", "Tecnico", "Manager", "Cliente" };
 
         foreach (var role in roles)
         {
@@ -116,6 +123,8 @@ async Task SeedRoles(IServiceProvider services)
         }
     }
 }
+
+
 
 
 

@@ -132,6 +132,8 @@ D:\Users\Usuario\Desktop\MIS PROYECTOS\BiodigestorTop3\Biodigestor\obj\Debug\net
 D:\Users\Usuario\Desktop\MIS PROYECTOS\BiodigestorTop3\Biodigestor\obj\Debug\net8.0\Biodigestor.csproj.CoreCompileInputs.cache
 D:\Users\Usuario\Desktop\MIS PROYECTOS\BiodigestorTop3\Biodigestor\obj\Debug\net8.0\Biodigestor.MvcApplicationPartsAssemblyInfo.cs
 D:\Users\Usuario\Desktop\MIS PROYECTOS\BiodigestorTop3\Biodigestor\obj\Debug\net8.0\Biodigestor.MvcApplicationPartsAssemblyInfo.cache
+D:\Users\Usuario\Desktop\MIS PROYECTOS\BiodigestorTop3\Biodigestor\obj\Debug\net8.0\Biodigestor.RazorAssemblyInfo.cache
+D:\Users\Usuario\Desktop\MIS PROYECTOS\BiodigestorTop3\Biodigestor\obj\Debug\net8.0\Biodigestor.RazorAssemblyInfo.cs
 D:\Users\Usuario\Desktop\MIS PROYECTOS\BiodigestorTop3\Biodigestor\obj\Debug\net8.0\Biodigestor.sourcelink.json
 D:\Users\Usuario\Desktop\MIS PROYECTOS\BiodigestorTop3\Biodigestor\obj\Debug\net8.0\staticwebassets.build.json
 D:\Users\Usuario\Desktop\MIS PROYECTOS\BiodigestorTop3\Biodigestor\obj\Debug\net8.0\staticwebassets.development.json
