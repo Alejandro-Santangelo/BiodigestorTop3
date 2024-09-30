@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dqkL4QkrIoA5TzqqTe3yczj4evEoU8sCp+u8rdXFklU=",
+  "Hash": "sXXh0T+8Uiy8XzebJxrBqq+w04kWnxavo8EhSxpU1x8=",
   "Source": "Biodigestor",
   "BasePath": "_content/Biodigestor",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\Users\\Usuario\\Desktop\\MIS PROYECTOS\\BiodigestorTop3\\Biodigestor\\wwwroot\\estilos.css",
+      "SourceId": "Biodigestor",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Users\\Usuario\\Desktop\\MIS PROYECTOS\\BiodigestorTop3\\Biodigestor\\wwwroot\\",
+      "BasePath": "_content/Biodigestor",
+      "RelativePath": "estilos.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\estilos.css"
+    },
     {
       "Identity": "D:\\Users\\Usuario\\Desktop\\MIS PROYECTOS\\BiodigestorTop3\\Biodigestor\\wwwroot\\index.html",
       "SourceId": "Biodigestor",

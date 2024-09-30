@@ -28,6 +28,8 @@ namespace Biodigestor.Data
         public DbSet<Registro> Registros { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApplicationUser> AspNetUsers { get; set; }
+        public DbSet<Personal> Personal { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

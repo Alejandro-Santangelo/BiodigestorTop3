@@ -18,34 +18,42 @@ namespace Biodigestor.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
-        {
-            if (model == null || string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.ConfirmPassword))
-            {
-                return BadRequest("Se requieren nombre de usuario, contraseña y confirmación de contraseña.");
-            }
+public async Task<IActionResult> Register([FromBody] RegisterModel model)
+{
+    // Validaciones iniciales
+    if (model == null || string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.ConfirmPassword))
+    {
+        return BadRequest(new { message = "Se requieren nombre de usuario, contraseña y confirmación de contraseña." });
+    }
 
-            if (model.Password != model.ConfirmPassword)
-            {
-                return BadRequest("Las contraseñas no coinciden.");
-            }
+    if (model.Password != model.ConfirmPassword)
+    {
+        return BadRequest(new { message = "Las contraseñas no coinciden." });
+    }
 
-            var user = new ApplicationUser
-            {
-                UserName = model.Username,
-                Email = model.Email // Asumiendo que Email es opcional en RegisterModel
-            };
+    // Verifica si el usuario ya existe
+    if (await _userService.UserExists(model.Username))
+    {
+        return BadRequest(new { message = "Ya estás registrado." }); // Mensaje para el usuario existente
+    }
 
-            try
-            {
-                await _userService.CreateUser(user, model.Password);
-                return Ok("Usuario registrado exitosamente.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
+    var user = new ApplicationUser
+    {
+        UserName = model.Username,
+        Email = model.Email // Asumiendo que Email es opcional en RegisterModel
+    };
+
+    try
+    {
+        await _userService.CreateUser(user, model.Password);
+        return Ok(new { message = "Usuario registrado exitosamente." }); // Mensaje de éxito
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { message = $"Error interno del servidor: {ex.Message}" });
+    }
+}
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)

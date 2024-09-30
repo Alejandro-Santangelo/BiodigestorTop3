@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\Users\\Usuario\\Desktop\\MIS PROYECTOS\\BiodigestorTop3\\Biodigestor\\wwwroot\\estilos.css",
+      "PackagePath": "staticwebassets\\estilos.css"
+    },
+    {
       "Id": "D:\\Users\\Usuario\\Desktop\\MIS PROYECTOS\\BiodigestorTop3\\Biodigestor\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
