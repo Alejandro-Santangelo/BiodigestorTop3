@@ -22,7 +22,7 @@ namespace Biodigestor.Data
         public DbSet<ValvulaAgua> ValvulasAgua { get; set; }
         public DbSet<ValvulaPresion> ValvulasPresion { get; set; }
         public DbSet<Agitador> Agitadores { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
+        
         public DbSet<Calentador> Calentadores { get; set; }
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<Registro> Registros { get; set; }
@@ -34,26 +34,7 @@ namespace Biodigestor.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Usuario>()
-                .HasKey(u => u.Id);
-                
-
-            modelBuilder.Entity<Usuario>()
-                .Property(u => u.Nombre)
-                .IsRequired();
-
-            modelBuilder.Entity<Usuario>()
-                .Property(u => u.Apellido)
-                .IsRequired();
-
-            modelBuilder.Entity<Usuario>()
-                .Property(u => u.DNI) // Asegurando que sea int y requerido
-                .IsRequired();
-
-            modelBuilder.Entity<Usuario>()
-                .Property(u => u.Rol)
-                .IsRequired();
+           
 
             // Configuración para Cliente
             modelBuilder.Entity<Cliente>()
